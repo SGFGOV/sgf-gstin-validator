@@ -16,8 +16,8 @@
 
   var validator = require('gstin-validator');
   validator.isValidGSTNumber('12AAACI1681G1Z0');
-	validator.ValidateGSTIN('47AAACI1681G1Z0');
-	validator.getGSTINInfo('12AAACI1681G1Z0');
+  validator.ValidateGSTIN('47AAACI1681G1Z0');
+  validator.getGSTINInfo('12AAACI1681G1Z0');
 
 ## Test
 
