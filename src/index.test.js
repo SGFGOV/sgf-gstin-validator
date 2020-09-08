@@ -35,7 +35,7 @@ describe('gstin-validator', function() {
       '03AAACI1681G1ZZ', '08AAACI1681G2ZO', '11AAACI1681G1Z2',
       '33AAACI1681G1ZW', '36AAACI1681G1ZQ', '16AAACI1681G1ZS',
       '09AAACI1681G1ZN', '05AAACI1681G1ZV', '19AAACI1681G1ZM',
-      '06AAACI1681G2ZS', '24AAACI1681G2ZU']; // GSTIN of Indian Oil across all states.
+      '06AAACI1681G2ZS', '24AAACI1681G2ZU']; //GSTIN of IOCL across all states
     var success = true;
     for (var gstin in gstins) {
       var result = validator.isValidGSTNumber(gstins[gstin]);

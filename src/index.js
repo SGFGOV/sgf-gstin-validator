@@ -117,7 +117,7 @@ function getInfo(gstin) {
 module.exports = {
   isValidGSTNumber: isValidGSTNumber,
 
-  ValidateGSTIN: function (gstin) {
+  ValidateGSTIN: function(gstin) {
     gstin = gstin.toUpperCase();
     if (gstin.length !== 15) {
       return 'Enter a valid 15 character GSTIN';
@@ -125,7 +125,7 @@ module.exports = {
     if (!validatePattern(gstin)) {
       return 'Invalid GSTIN format';
     } else {
-      if (gstin.toUpperCase()[14] != calcCheckSum(gstin.toUpperCase())) {
+      if (gstin.toUpperCase()[14] !== calcCheckSum(gstin.toUpperCase())) {
         return 'Invalid checksum character in GSTIN';
       } else
         return 'Valid GSTIN';
