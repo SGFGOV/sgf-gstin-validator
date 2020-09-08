@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var validator = require('./index');
+var assert = require('assert');
 
 describe('gstin-validator', function () {
   it('isValidGSTNumber::Should return false when length is not 15 digits', function () {
