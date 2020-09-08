@@ -46,37 +46,37 @@ describe('gstin-validator', function () {
 
     it('ValidateGSTIN::Should return Enter a valid 15 character GSTIN when length is not 15 digits', function () {
         var result = validator.ValidateGSTIN('123412341234');
-        expect((result == 'Enter a valid 15 character GSTIN')).to.be.true;
+        expect((result === 'Enter a valid 15 character GSTIN')).to.be.true;
     });
 
     it('ValidateGSTIN::Should return Invalid GSTIN format if 15 digit non regex matching GSTIN is validated', function () {
         var result = validator.ValidateGSTIN('47AAGCG4576J1A6');
-        expect((result == 'Invalid GSTIN format')).to.be.true;
+        expect((result === 'Invalid GSTIN format')).to.be.true;
     });
 
     it('ValidateGSTIN::Should return Invalid checksum character in GSTIN if 15 digit valid regex matching GSTIN with incorrect checksum is validated', function () {
         var result = validator.ValidateGSTIN('25AAACI1681G1Z4');
-        expect((result == 'Invalid checksum character in GSTIN')).to.be.true;
+        expect((result === 'Invalid checksum character in GSTIN')).to.be.true;
     });
 
     it('ValidateGSTIN::Should return true if valid 15 digit GSTIN is passed', function () {
         var result = validator.ValidateGSTIN('27AAGCG4576J1Z6'); // Google India
-        expect((result == 'Valid GSTIN')).to.be.true;
+        expect((result === 'Valid GSTIN')).to.be.true;
     });
 
     it('getGSTINInfo::Should return verbose text for a valid GSTIN', function () {
         var result = validator.getGSTINInfo('27AAGCG4576J1Z6');
-        expect((result == 'The GSTIN 27AAGCG4576J1Z6 is entity #1 belonging to Company whose PAN is AAGCG4576J registered in Maharashtra (MH)')).to.be.true;
+        expect((result === 'The GSTIN 27AAGCG4576J1Z6 is entity #1 belonging to Company whose PAN is AAGCG4576J registered in Maharashtra (MH)')).to.be.true;
     });
 
     it('getGSTINInfo::Should return verbose text for a valid GSTIN of 11th entity of same PAN', function () {
         var result = validator.getGSTINInfo('27AAGCG4576JBZW');
-        expect((result == 'The GSTIN 27AAGCG4576JBZW is entity #11 belonging to Company whose PAN is AAGCG4576J registered in Maharashtra (MH)')).to.be.true;
+        expect((result === 'The GSTIN 27AAGCG4576JBZW is entity #11 belonging to Company whose PAN is AAGCG4576J registered in Maharashtra (MH)')).to.be.true;
     });
 
     it('getGSTINInfo::Should return Invalid GSTIN on incorrect GSTIN', function () {
         var result = validator.getGSTINInfo('47AAGCG4576J1Z6');
-        expect((result == 'Invalid GSTIN')).to.be.true;
+        expect((result === 'Invalid GSTIN')).to.be.true;
     });
 
 });
