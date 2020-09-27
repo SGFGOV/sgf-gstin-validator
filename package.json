@@ -29,12 +29,16 @@
  "homepage": "https://gitlab.com/srikanthlogic/gstin-validator#README",
  "devDependencies": {
   "chai": "^4.2.0",
-  "eslint": "^7.8.1",
+  "eslint": "^7.10.0",
   "eslint-config-strongloop": "^2.1.0",
   "mocha": "^8.1.3",
   "nyc": "^15.1.0",
-  "uglify-js": "^3.10.4",
-  "webpack": "^4.44.1",
+  "uglify-js": "^3.11.0",
+  "webpack": "^4.44.2",
   "webpack-cli": "^3.3.12"
+ },
+ "dependencies": {
+  "fs": "0.0.1-security",
+  "jsonwebtoken": "^8.5.1"
  }
 }
