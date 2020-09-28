@@ -1,7 +1,7 @@
 'use strict';
 
-var fs = require('fs');
 var jwt = require('jsonwebtoken');
+var certs = require('./certs');
 
 function calcCheckSum(gstin) {
   var GSTN_CODEPOINT_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -150,15 +150,22 @@ function getInfo(gstin) {
   return info_msg;
 }
 
+function getCert(certname) {
+  if (certname === undefined) {
+    certname = 'einv_prod';
+  }
+  if (certname.endsWith('.pem')) {
+    certname = certname.replace('.pem', '');
+  }
+  // get public key
+  var buf = Buffer.from(certs[certname], 'base64');
+  return buf.toString();
+}
+
 // This function is to validate a eInvoice QR
 function validateEInvoiceSignedQR(qrText, publickey) {
-  if (publickey === undefined) {
-    // Use Production public key as default unless passed
-    publickey = 'einv_prod.pem';
-  }
+  var cert = getCert(publickey);
   try {
-    // get public key
-    var cert = fs.readFileSync('./resources/' + publickey);
     var decodedQR = jwt.verify(qrText, cert, {issuer: 'NIC'});
   } catch (err) {
     throw new Error('Signature Verification Failed!');
@@ -167,13 +174,8 @@ function validateEInvoiceSignedQR(qrText, publickey) {
 }
 
 function validateSignedInvoice(signedInvoiceJWT, publickey) {
-  if (publickey === undefined) {
-    // Use Production public key as default unless passed
-    publickey = 'einv_prod.pem';
-  }
+  var cert = getCert(publickey);
   try {
-    // get public key
-    var cert = fs.readFileSync('./resources/' + publickey);
     var invoice = jwt.verify(signedInvoiceJWT, cert, {issuer: 'NIC'});
   } catch (err) {
     throw new Error('Signature Verification Failed!');
