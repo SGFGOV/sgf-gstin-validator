@@ -1,6 +1,16 @@
 const path = require('path');
 
 module.exports = {
+  resolve: {
+    modules:[],
+    fallback:
+    {
+    "util": false ,
+    "buffer": false ,
+    "stream-browserify": false,
+    "jsonwebtoken":false
+    }
+  },
   entry: './src/index.js',
   mode: "development",
   output: {
@@ -8,6 +18,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   externals: {
-    fs: {}
-  }
+    fs: 
+      {     
+    }
+    
+  },
+  
+  
 };
