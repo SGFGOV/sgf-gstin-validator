@@ -12,22 +12,24 @@
  },
  "repository": {
   "type": "git",
-  "url": "git+https://gitlab.com/srikanthlogic/gstin-validator.git"
+  "url": "https://github.com/SGFGOV/gstin-validator.git"
  },
  "files": [
-  "dist"
+  "dist",
+  "src/certs"
  ],
  "keywords": [
   "gstin",
   "gstn",
-  "india"
+  "india",
+  "medusa"
  ],
- "author": "Srikanth Lakshmanan",
+ "author": "SGF",
  "license": "MIT",
  "bugs": {
-  "url": "https://gitlab.com/srikanthlogic/gstin-validator/issues"
+  "url": "https://github.com/SGFGOV/gstin-validator.git/issues"
  },
- "homepage": "https://gitlab.com/srikanthlogic/gstin-validator#README",
+ "homepage": "https://github.com/SGFGOV/gstin-validator.git#README",
  "devDependencies": {
   "chai": "^4.3.4",
   "eslint": "^7.32.0",
