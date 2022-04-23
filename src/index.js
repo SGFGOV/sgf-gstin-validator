@@ -185,7 +185,7 @@ function validateSignedInvoice(signedInvoiceJWT, publickey) {
 }
 
 module.exports = {
-  isValidGSTNumber: isValidGSTNumber,
+  isValidGSTNumber: isValidGSTNumber  ,
 
   ValidateGSTIN: function(gstin) {
     gstin = gstin.toUpperCase();

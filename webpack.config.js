@@ -12,7 +12,7 @@ module.exports = {
     }
   },
   entry: './src/index.js',
-  mode: "production",
+  mode: "development",
   output: {
     filename: 'gstin-validator.js',
     path: path.resolve(__dirname, 'dist')
