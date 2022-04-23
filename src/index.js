@@ -1,7 +1,7 @@
 'use strict';
 
-import * as  jwt from 'jsonwebtoken';
-import * as certs from './certs.js';
+var jwt = require('jsonwebtoken');
+var certs = require( './certs.js');
 
 function calcCheckSum(gstin) {
   var GSTN_CODEPOINT_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -34,7 +34,7 @@ function validatePattern(gstin) {
   return gstinRegexPattern.test(gstin);
 }
 
-export function isValidGSTNumber(gstin) {
+function isValidGSTNumber(gstin) {
   gstin = gstin.toUpperCase();
   if (gstin.length !== 15) {
     return false;
@@ -45,7 +45,7 @@ export function isValidGSTNumber(gstin) {
   return false;
 }
 
-export function getGSTINInfo(gstin) {
+function getGSTINInfo(gstin) {
   var states = [
     {
       state_name: 'Andaman and Nicobar Islands',
@@ -163,7 +163,7 @@ function getCert(certname) {
 }
 
 // This function is to validate a eInvoice QR
-export function validateEInvoiceSignedQR(qrText, publickey) {
+function validateEInvoiceSignedQR(qrText, publickey) {
   var cert = getCert(publickey);
   try {
     var decodedQR = jwt.verify(qrText, cert, {issuer: 'NIC'});
@@ -173,7 +173,7 @@ export function validateEInvoiceSignedQR(qrText, publickey) {
   return decodedQR;
 }
 
-export function validateSignedInvoice(signedInvoiceJWT, publickey) {
+function validateSignedInvoice(signedInvoiceJWT, publickey) {
   var cert = getCert(publickey);
   try {
     var invoice = jwt.verify(signedInvoiceJWT, cert, {issuer: 'NIC'});
@@ -184,7 +184,7 @@ export function validateSignedInvoice(signedInvoiceJWT, publickey) {
 
 }
 
-export function ValidateGSTIN(gstin) {
+function ValidateGSTIN(gstin) {
   gstin = gstin.toUpperCase();
   if (gstin.length !== 15) {
     return 'Enter a valid 15 character GSTIN';
@@ -198,14 +198,14 @@ export function ValidateGSTIN(gstin) {
   }
 }
 
-/*module.exports = {
+module.exports = {
   isValidGSTNumber: isValidGSTNumber  ,
 
-  ValidateGSTIN: ,
+  ValidateGSTIN: ValidateGSTIN,
 
   validateEInvoiceSignedQR: validateEInvoiceSignedQR,
 
   validateSignedInvoice: validateSignedInvoice,
 
-  getGSTINInfo: getInfo,
-};*/
+  getGSTINInfo: getGSTINInfo,
+};
