@@ -3,10 +3,11 @@
  "version": "1.0.3",
  "description": "Module to validate GSTIN and verify Signed QR of GST eInvoice",
  "main": "dist/gstin-validator.js",
+ "type": "module",
  "scripts": {
   "test": "mocha src/index.test.js",
   "test-coverage": "nyc mocha src/index.test.js",
-  "build": "npx webpack --config webpack.config.js",
+  "build": "npx webpack --config webpack.config.cjs",
   "dist": "uglifyjs dist/gstin-validator.js -o dist/gstin-validator.min.js",
   "pack-certs": "node scripts/pack_certs.js"
  },
@@ -15,8 +16,7 @@
   "url": "https://github.com/SGFGOV/gstin-validator.git"
  },
  "files": [
-  "dist",
-  "src/certs"
+  "dist"
  ],
  "keywords": [
   "gstin",
@@ -31,6 +31,7 @@
  },
  "homepage": "https://github.com/SGFGOV/gstin-validator.git#README",
  "devDependencies": {
+  "@babel/plugin-transform-modules-commonjs": "^7.17.9",
   "chai": "^4.3.4",
   "eslint": "^7.32.0",
   "eslint-config-strongloop": "^2.1.0",

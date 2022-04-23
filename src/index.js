@@ -1,7 +1,7 @@
 'use strict';
 
-var jwt = require('jsonwebtoken');
-var certs = require('./certs');
+import * as  jwt from 'jsonwebtoken';
+import * as certs from './certs.js';
 
 function calcCheckSum(gstin) {
   var GSTN_CODEPOINT_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -45,7 +45,7 @@ export function isValidGSTNumber(gstin) {
   return false;
 }
 
-function getInfo(gstin) {
+export function getGSTINInfo(gstin) {
   var states = [
     {
       state_name: 'Andaman and Nicobar Islands',
@@ -163,7 +163,7 @@ function getCert(certname) {
 }
 
 // This function is to validate a eInvoice QR
-function validateEInvoiceSignedQR(qrText, publickey) {
+export function validateEInvoiceSignedQR(qrText, publickey) {
   var cert = getCert(publickey);
   try {
     var decodedQR = jwt.verify(qrText, cert, {issuer: 'NIC'});
@@ -173,7 +173,7 @@ function validateEInvoiceSignedQR(qrText, publickey) {
   return decodedQR;
 }
 
-function validateSignedInvoice(signedInvoiceJWT, publickey) {
+export function validateSignedInvoice(signedInvoiceJWT, publickey) {
   var cert = getCert(publickey);
   try {
     var invoice = jwt.verify(signedInvoiceJWT, cert, {issuer: 'NIC'});
@@ -184,26 +184,28 @@ function validateSignedInvoice(signedInvoiceJWT, publickey) {
 
 }
 
-module.exports = {
+export function ValidateGSTIN(gstin) {
+  gstin = gstin.toUpperCase();
+  if (gstin.length !== 15) {
+    return 'Enter a valid 15 character GSTIN';
+  }
+  if (!validatePattern(gstin)) {
+    return 'Invalid GSTIN format';
+  } else {
+    if (gstin.toUpperCase()[14] !== calcCheckSum(gstin.toUpperCase())) {
+      return 'Invalid checksum character in GSTIN';
+    } else return 'Valid GSTIN';
+  }
+}
+
+/*module.exports = {
   isValidGSTNumber: isValidGSTNumber  ,
 
-  ValidateGSTIN: function(gstin) {
-    gstin = gstin.toUpperCase();
-    if (gstin.length !== 15) {
-      return 'Enter a valid 15 character GSTIN';
-    }
-    if (!validatePattern(gstin)) {
-      return 'Invalid GSTIN format';
-    } else {
-      if (gstin.toUpperCase()[14] !== calcCheckSum(gstin.toUpperCase())) {
-        return 'Invalid checksum character in GSTIN';
-      } else return 'Valid GSTIN';
-    }
-  },
+  ValidateGSTIN: ,
 
   validateEInvoiceSignedQR: validateEInvoiceSignedQR,
 
   validateSignedInvoice: validateSignedInvoice,
 
   getGSTINInfo: getInfo,
-};
+};*/

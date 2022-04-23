@@ -1,7 +1,14 @@
 'use strict';
-var expect = require('chai').expect;
-var validator = require('./index');
+
+//import {expect} from 'chai';
+import * as validator from '../index';
+
+
+//var validator = require('../index');
 var fs = require('fs');
+var expect = require('chai').expect;
+
+//import * as fs from 'fs' 
 
 describe('gstin-validator', function() {
   it('isValidGSTNumber::Should return false when length is not 15 digits',
