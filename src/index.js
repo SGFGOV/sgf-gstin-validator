@@ -34,7 +34,7 @@ function validatePattern(gstin) {
   return gstinRegexPattern.test(gstin);
 }
 
-function isValidGSTNumber(gstin) {
+export function isValidGSTNumber(gstin) {
   gstin = gstin.toUpperCase();
   if (gstin.length !== 15) {
     return false;
