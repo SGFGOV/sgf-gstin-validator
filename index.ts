@@ -139,13 +139,13 @@ function getGSTINInfo(gstin) {
     ' belonging to ' +
     panTypes.find(function(o) {
       return o.code === gstin[5];
-    }).pan_type +
+    })?.pan_type +
     ' whose PAN is ' +
     gstin.slice(2, 12) +
     ' registered in ' +
-    state.state_name +
+    state?.state_name +
     ' (' +
-    state.state_shortcode +
+    state?.state_shortcode +
     ')';
   return info_msg;
 }

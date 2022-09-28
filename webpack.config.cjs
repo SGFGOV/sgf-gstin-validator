@@ -11,7 +11,7 @@ module.exports = {
     "jsonwebtoken":false
     }
   },
-  entry: './src/index.js',
+  entry: './dist/index.js',
   mode: "development",
   output: {
     filename: 'gstin-validator.js',
