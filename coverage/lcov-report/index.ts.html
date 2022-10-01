@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.38% </span>
+                <span class="strong">98.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>61/62</span>
+                <span class='fraction'>60/61</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.33% </span>
+                <span class="strong">98.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>59/60</span>
+                <span class='fraction'>58/59</span>
             </div>
         
             
@@ -263,18 +263,7 @@
 <a name='L198'></a><a href='#L198'>198</a>
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a>
-<a name='L207'></a><a href='#L207'>207</a>
-<a name='L208'></a><a href='#L208'>208</a>
-<a name='L209'></a><a href='#L209'>209</a>
-<a name='L210'></a><a href='#L210'>210</a>
-<a name='L211'></a><a href='#L211'>211</a>
-<a name='L212'></a><a href='#L212'>212</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L201'></a><a href='#L201'>201</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -474,23 +463,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
 var jwt = require('jsonwebtoken');
 var certs = require( './certs.js');
 &nbsp;
-function calcCheckSum(gstin) {
+export function calcCheckSum(gstin) {
   var GSTN_CODEPOINT_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var factor = 2;
   var sum = 0;
@@ -515,13 +493,13 @@ function calcCheckSum(gstin) {
 }
 &nbsp;
 // GSTIN Regex validation result
-function validatePattern(gstin) {
+export function validatePattern(gstin) {
   // eslint-disable-next-line max-len
   var gstinRegexPattern = /^([0-2][0-9]|[3][0-8])[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{4}[A-Z][A-Z0-9][Z][A-Z0-9]$/;
   return gstinRegexPattern.test(gstin);
 }
 &nbsp;
-function isValidGSTNumber(gstin) {
+export function isValidGSTNumber(gstin) {
   gstin = gstin.toUpperCase();
   if (gstin.length !== 15) {
     return false;
@@ -532,7 +510,7 @@ function isValidGSTNumber(gstin) {
   return false;
 }
 &nbsp;
-function getGSTINInfo(gstin) {
+export function getGSTINInfo(gstin) {
   var states = [
     {
       state_name: 'Andaman and Nicobar Islands',
@@ -598,7 +576,7 @@ function getGSTINInfo(gstin) {
     { state_name: 'West Bengal', state_code: '19', state_shortcode: 'WB' },
   ];
 &nbsp;
-  var panTypes = [
+  const panTypes = [
     { code: 'C', pan_type: 'Company' },
     { code: 'P', pan_type: 'Person' },
     { code: 'H', pan_type: 'HUF (Hindu Undivided Family)' },
@@ -637,7 +615,7 @@ function getGSTINInfo(gstin) {
   return info_msg;
 }
 &nbsp;
-function getCert(certname) {
+export function getCert(certname) {
   <span class="missing-if-branch" title="if path not taken" >I</span>if (certname === undefined) {
 <span class="cstat-no" title="statement not covered" >    certname = 'einv_prod';</span>
   }
@@ -650,7 +628,7 @@ function getCert(certname) {
 }
 &nbsp;
 // This function is to validate a eInvoice QR
-function validateEInvoiceSignedQR(qrText, publickey) {
+export function validateEInvoiceSignedQR(qrText, publickey) {
   var cert = getCert(publickey);
   try {
     var decodedQR = jwt.verify(qrText, cert, {issuer: 'NIC'});
@@ -660,7 +638,7 @@ function validateEInvoiceSignedQR(qrText, publickey) {
   return decodedQR;
 }
 &nbsp;
-function validateSignedInvoice(signedInvoiceJWT, publickey) {
+export function validateSignedInvoice(signedInvoiceJWT, publickey) {
   var cert = getCert(publickey);
   try {
     var invoice = jwt.verify(signedInvoiceJWT, cert, {issuer: 'NIC'});
@@ -671,7 +649,7 @@ function validateSignedInvoice(signedInvoiceJWT, publickey) {
 &nbsp;
 }
 &nbsp;
-function ValidateGSTIN(gstin) {
+export function ValidateGSTIN(gstin) {
   gstin = gstin.toUpperCase();
   if (gstin.length !== 15) {
     return 'Enter a valid 15 character GSTIN';
@@ -685,17 +663,6 @@ function ValidateGSTIN(gstin) {
   }
 }
 &nbsp;
-module.exports = {
-  isValidGSTNumber: isValidGSTNumber  ,
-&nbsp;
-  ValidateGSTIN: ValidateGSTIN,
-&nbsp;
-  validateEInvoiceSignedQR: validateEInvoiceSignedQR,
-&nbsp;
-  validateSignedInvoice: validateSignedInvoice,
-&nbsp;
-  getGSTINInfo: getGSTINInfo,
-};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -703,7 +670,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Oct 01 2022 00:39:46 GMT+0000 (Coordinated Universal Time)
+                at Sat Oct 01 2022 00:55:05 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="prettify.js"></script>
         <script>
