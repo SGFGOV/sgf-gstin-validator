@@ -1,8 +1,8 @@
 {
  "name": "sgf-gstin-validator",
- "version": "2.0.1",
+ "version": "2.0.3",
  "description": "Module to validate GSTIN and verify Signed QR of GST eInvoice",
- "main": "dist/index.js",
+ "main": "dist/sgf-gstin-validator.js",
  "type": "commonjs",
  "scripts": {
   "test": "jest",
@@ -38,6 +38,8 @@
   "@babel/plugin-transform-modules-commonjs": "^7.17.9",
   "@babel/preset-typescript": "^7.18.6",
   "@types/jest": "^27.5.1",
+  "@types/jsonwebtoken": "^8.5.9",
+  "@types/node": "^18.7.23",
   "chai": "^4.3.4",
   "eslint": "^7.32.0",
   "eslint-config-strongloop": "^2.1.0",

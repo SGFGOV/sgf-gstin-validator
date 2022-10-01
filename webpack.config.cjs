@@ -14,7 +14,7 @@ module.exports = {
   entry: './dist/index.js',
   mode: "development",
   output: {
-    filename: 'gstin-validator.js',
+    filename: 'sgf-gstin-validator.js',
     path: path.resolve(__dirname, 'dist')
   },
   externals: {

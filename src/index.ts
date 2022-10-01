@@ -3,7 +3,7 @@
 var jwt = require('jsonwebtoken');
 var certs = require( './certs.js');
 
-export function calcCheckSum(gstin) {
+function calcCheckSum(gstin) {
   var GSTN_CODEPOINT_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var factor = 2;
   var sum = 0;
@@ -28,13 +28,13 @@ export function calcCheckSum(gstin) {
 }
 
 // GSTIN Regex validation result
-export function validatePattern(gstin) {
+function validatePattern(gstin) {
   // eslint-disable-next-line max-len
   var gstinRegexPattern = /^([0-2][0-9]|[3][0-8])[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{4}[A-Z][A-Z0-9][Z][A-Z0-9]$/;
   return gstinRegexPattern.test(gstin);
 }
 
-export function isValidGSTNumber(gstin) {
+function isValidGSTNumber(gstin) {
   gstin = gstin.toUpperCase();
   if (gstin.length !== 15) {
     return false;
@@ -45,7 +45,7 @@ export function isValidGSTNumber(gstin) {
   return false;
 }
 
-export function getGSTINInfo(gstin) {
+function getGSTINInfo(gstin) {
   var states = [
     {
       state_name: 'Andaman and Nicobar Islands',
@@ -111,7 +111,7 @@ export function getGSTINInfo(gstin) {
     { state_name: 'West Bengal', state_code: '19', state_shortcode: 'WB' },
   ];
 
-  const panTypes = [
+  var panTypes = [
     { code: 'C', pan_type: 'Company' },
     { code: 'P', pan_type: 'Person' },
     { code: 'H', pan_type: 'HUF (Hindu Undivided Family)' },
@@ -150,7 +150,7 @@ export function getGSTINInfo(gstin) {
   return info_msg;
 }
 
-export function getCert(certname) {
+function getCert(certname) {
   if (certname === undefined) {
     certname = 'einv_prod';
   }
@@ -163,7 +163,7 @@ export function getCert(certname) {
 }
 
 // This function is to validate a eInvoice QR
-export function validateEInvoiceSignedQR(qrText, publickey) {
+function validateEInvoiceSignedQR(qrText, publickey) {
   var cert = getCert(publickey);
   try {
     var decodedQR = jwt.verify(qrText, cert, {issuer: 'NIC'});
@@ -173,7 +173,7 @@ export function validateEInvoiceSignedQR(qrText, publickey) {
   return decodedQR;
 }
 
-export function validateSignedInvoice(signedInvoiceJWT, publickey) {
+function validateSignedInvoice(signedInvoiceJWT, publickey) {
   var cert = getCert(publickey);
   try {
     var invoice = jwt.verify(signedInvoiceJWT, cert, {issuer: 'NIC'});
@@ -184,7 +184,7 @@ export function validateSignedInvoice(signedInvoiceJWT, publickey) {
 
 }
 
-export function ValidateGSTIN(gstin) {
+function ValidateGSTIN(gstin) {
   gstin = gstin.toUpperCase();
   if (gstin.length !== 15) {
     return 'Enter a valid 15 character GSTIN';
@@ -198,3 +198,14 @@ export function ValidateGSTIN(gstin) {
   }
 }
 
+module.exports = {
+  isValidGSTNumber: isValidGSTNumber  ,
+
+  ValidateGSTIN: ValidateGSTIN,
+
+  validateEInvoiceSignedQR: validateEInvoiceSignedQR,
+
+  validateSignedInvoice: validateSignedInvoice,
+
+  getGSTINInfo: getGSTINInfo,
+};
