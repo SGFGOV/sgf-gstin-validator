@@ -1,6 +1,6 @@
 {
  "name": "sgf-gstin-validator",
- "version": "2.0.0",
+ "version": "2.0.1",
  "description": "Module to validate GSTIN and verify Signed QR of GST eInvoice",
  "main": "dist/index.js",
  "type": "commonjs",
